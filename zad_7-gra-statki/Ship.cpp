@@ -4,22 +4,26 @@
 using namespace std;
 
 Ship::Ship() {
-	cout << "Wspó³rzêdne statka:";
+	//cout << "Wspó³rzêdne statka:";
 	int h = 1;
 	int g = 1;
+	cout << "Wspó³rzêdne statka:";
+	cin >> place;
+	/*
 	do {
+		cout << "Wspó³rzêdne statka:";
 		cin >> place;
 		for (int i = 0; i < 10; i++) {
 			if (place[0] == i) h = 0; 
 		}
 		place[1] = tolower(place[1]);
 		for (int k = 97; k < 107; k++) {
-			if (place[1] == k and h == 0) g = 0;
-		};	
-	} while (g);
+			if (int(place[1]) == k and h == 0) g = 0;
+		}	
+	} while (g);*/
 };
 
-
+/*
 bool Ship::ifok(Board *board,Ship s) {
 	int edgec = 0;
 	int edgen = 0;
@@ -114,6 +118,6 @@ bool Ship::ifok(Board *board,Ship s) {
 
 	
 };
-
+*/
 
 

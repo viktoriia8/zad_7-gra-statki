@@ -19,18 +19,16 @@ using namespace std;
 int main()
 {
     setlocale(LC_CTYPE, "Polish");
-    Menu_Start();
-    Board b;
-    b.showmyboard();
-    Ship k;
-    if (k.ifok(&b, k)) { 
-        cout << "OK"; 
-        b.addShip(k);
-    }
-    else cout << "NO";
     
-    b.showmyboard();
-
-
-    cout << "Hello World!\n";
+        Menu_Start();
+        Board b;
+        b.showmyboard();
+        while(true){
+        Ship k;
+        if (b.ifok(k)) {
+            cout << "OK\n";
+            b.addShip(k);
+        }
+        b.showmyboard();
+    } 
 }

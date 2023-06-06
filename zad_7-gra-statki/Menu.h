@@ -17,7 +17,7 @@ void Menu_Start() {
     do {
     cout << "1.Start gry\n";
     cout << "2.Zasady gry\n";
-    int choice;
+    int choice=0;
     int h = 1;
     
         do {

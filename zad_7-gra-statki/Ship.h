@@ -9,18 +9,18 @@
 #include <cassert>
 #include <algorithm>
 #pragma once
-#include "Board.h"
 
 
 
 
-using namespace std;
+
+//using namespace std;
 
 class Ship {
 public:
-	string place;  //miejsce statka na tablicy
+	std::string place;  //miejsce statka na tablicy
 	Ship();
-	bool ifok(Board *board,Ship s);
-	friend class Board;
+	//bool ifok(Board *board,Ship s);
+	
 };
 
