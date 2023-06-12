@@ -7,11 +7,11 @@ void Board::showmyboard() {
 	int i, j;
 	cout << "   a b c d e f g h i j \n";
 	cout << "----------------------\n";
-	for (i = 0; i < 10; i++) {
-		if (i!=9)
-		cout << i+1 << "| ";
-		else if(i==9)cout << "0" << "| ";
-		for (j = 0; j < 10; j++) {
+	for (i = 1; i < 11; i++) {
+		if (i!=10)
+		cout << i << "| ";
+		else if(i==10)cout << "0" << "| ";
+		for (j = 1; j < 11; j++) {
 			if (matrix[i][j] == 0) cout << ".";             //puste miejsca na mapie
 			else if (matrix[i][j] == 1) cout << "#";		//Statki
 			else if (matrix[i][j] == 2)cout << "x";			//strzelone puste miejsca
@@ -24,34 +24,28 @@ void Board::showmyboard() {
 };
 void Board::addShip(const Ship& s){
 	string place = s.place;
-	int num = atoi(&place[0])-1;
-	if (num == -1)num = 9;
-	int ch = int(place[1])-97;
+	int num = atoi(&place[0]);
+	if (num == 0)num = 10;
+	int ch = int(place[1])-96;
 	matrix[num][ch] = 1;
 
 };
 
 Board::Board(){
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
+	for (int i = 0; i < 13; i++) {
+		for (int j = 0; j < 13; j++) {
 			matrix[i][j] = 0;
 		}
 	}
 };
 
 bool Board::ifok(const Ship& s) {
-	int edgec = 0;
-	int edgen = 0;
-	int edge = 0;
 	string place_ = s.place;
-	int row = atoi(&place_[0])-1;
-	if (row == -1)row = 8;
-	int column = int(place_[1])-97;
-	if (row == 0 or row == 9)edgen = 1;
-	if (column == 0 or column == 9)edgec = 1;
-	edge = edgen + edgec;
-	int correct=0;
-	for (int g = 0; g < 10; g++) {
+	int row = atoi(&place_[0]);
+	if (row == 0)row = 10;
+	int column = int(place_[1]) - 96;     //97-106
+	int correct = 0;
+	for (int g = 1; g < 11; g++) {
 		if (row == g) correct++;
 		if (column == g)correct++;
 	}
@@ -59,87 +53,10 @@ bool Board::ifok(const Ship& s) {
 		cout << "le wprowadzone wspó³rzêdne statka!\n";
 		return 0;
 	}
-	if (edge != 2 && edge!=1) {
-		int j = column;
-		int i = row;       //sprawdzenie czy mo¿na umieœciæ statek w czêœci œrodkowej pola(nie z bregów)
-		for ((i - 1); i<(row + 2); i++) {
-			for ((j - 1); j<(column + 1); j++) {
-				if (matrix[i][j] != 0) return 0;
-			}
-		}return 1;
-	}
-	if (edgen == 1) {
-		if (row == 0) {
-			int f = 0;
-			int h = column;
-			for ((h - 1); h<(column + 1); h++) {
-				if (matrix[f][h] != 0) return 0;
-				if (matrix[f + 1][h] != 0) return 0;
-			}
-			return 1;
-		}														//sprawdzanie dla górnego i dolnego brzegu bez kratek w rogu
-
-		if (row == 9) {
-			int f = 9;
-			int h = column;
-			for ((h - 1); h<(column + 1); h++) {
-				if (matrix[f][h] != 0) return 0;
-				if (matrix[f - 1][h] != 0) return 0;
-			}
-			return 1;
+		//sprawdzenie czy mo¿na umieœciæ statek
+	for (int y = row - 1; y <= row + 1; y++) {
+		for (int x = column - 1; x <= column + 1; x++) {
+			if (matrix[y][x] != 0) return 0;
 		}
-
-	};
-	if (edgec == 1) {
-		if (column == 0 and edge != 2) {
-			int f = 0;
-			int h = row;
-			for ((h - 1); h<(row + 1); h++) {
-				if (matrix[h][f] != 0) return 0;
-				if (matrix[h + 1][f] != 0) return 0;
-			}
-			return 1;
-		}														//sprawdzanie dla prawego i lewego brzegu bez kratek w rogu
-
-		if (column == 9 and edge!=2) {
-			int f = 9;
-			int h = row;
-			for ((h - 1); h<(row + 1); h++) {
-				if (matrix[h][f] != 0) return 0;
-				if (matrix[h - 1][f] != 0) return 0;
-			}
-			return 1;
-		}
-
-	};
-	if (row == 0 and column == 0) {
-		for (int d = 0; d < 2; d++) {
-			for (int k = 0; k < 2; k++) {                        //sprawdzenie dla kratki 1a
-				if (matrix[d][k] != 0)return 0;
-			}
-		}return 1;
-	}
-	if (row == 9 and column == 0) {
-		for (int d = 9; d > 7; d--) {
-			for (int k = 0; k < 2; k++) {						//sprawdzenie dla kratki 0a
-				if (matrix[d][k] != 0)return 0;
-			}
-		}return 1;
-	}
-
-	if (row == 9 and column == 9) {
-		for (int d = 0; d < 2; d++) {
-			for (int k = 9; k > 7; k--) {                        //sprawdzenie dla kratki 0j
-				if (matrix[d][k] != 0)return 0;
-			}
-		}return 1;
-	}
-	if (row == 0 and column == 9) {
-		for (int d = 9; d > 7; d--) {
-			for (int k = 9; k > 7; k--) {						//sprawdzenie dla kratki 1j
-				if (matrix[d][k] != 0)return 0;
-			}
-		}return 1;
-	}
-
-};
+	}return 1;
+}

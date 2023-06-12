@@ -29,6 +29,7 @@ int main()
             cout << "OK\n";
             b.addShip(k);
         }
+        else cout << "No\n";
         b.showmyboard();
     } 
 }

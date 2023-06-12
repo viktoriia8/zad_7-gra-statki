@@ -17,7 +17,7 @@ using namespace std;
 
 class Board {
 	public:
-	int matrix[10][10];
+	int matrix[12][12];
 	void showmyboard();
 	void addShip(const Ship& s);
 	Board();
